@@ -12,7 +12,8 @@ const isLoading = ref(true);
 const itemID = Number(route.params.id);
 
 onMounted(async () => {
-  const response = await fetchGet(store.getTaleUrl + `$TaleID=${itemID}`);
+  console.log(itemID);
+  const response = await fetchGet(store.getTaleUrl + `?TaleID=${itemID}`);
   tale.value = response.Tale;
   isLoading.value = false;
 });
@@ -22,14 +23,15 @@ onMounted(async () => {
   <div class="detail-page" v-if="!isLoading">
     <div class="image-block">
       <button class="back-button" @click="$router.back()">
-        <img :src="tale?.image" alt="Назад" />
+        <img src="@/assets/images/back.svg" alt="Назад" />
       </button>
-      <img src="@/assets/images/Tail.png" alt="" class="tail-image" />
+      <img :src="tale?.Image" alt="" class="tail-image" v-if="tale?.Image" />
+      <div class="empty-image" v-else>Нет изображения</div>
     </div>
 
     <div class="text-block">
-      <h2 class="tale-name">{{ tale?.title }}</h2>
-      <p class="tale-description" v-html="tale?.description"></p>
+      <h2 class="tale-name">{{ tale?.Title }}</h2>
+      <p class="tale-description" v-html="tale?.Description"></p>
     </div>
   </div>
   <div class="loader" v-else>Загрузка</div>
@@ -67,6 +69,20 @@ onMounted(async () => {
 .tail-image {
   width: 100%;
   height: 340px;
+}
+
+.empty-image {
+  width: 100%;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Montserrat-Medium;
+  font-weight: 500;
+  font-size: 24px;
+  color: #000;
+  border-radius: 16px;
+  background: #ececec;
 }
 
 .favorite-image {

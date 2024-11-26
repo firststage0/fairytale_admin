@@ -5,8 +5,9 @@ export type Item = {
 };
 
 export type Tale = {
-  id: number;
-  title: string;
-  image: string;
-  description: string;
+  UniqueID: number;
+  Title: string;
+  Image: string;
+  Description: string;
+  Section: string;
 };

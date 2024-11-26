@@ -2,12 +2,12 @@
 import TaleCard from "@/components/TaleCard.vue";
 import { useStore } from "@/stores/store";
 import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const isDetailView = computed(() => route.name === "home-details");
 const store = useStore();
 const isLoading = ref(true);
-
+const router = useRouter();
 onMounted(async () => {
   await store.getTales();
   isLoading.value = false;
@@ -15,6 +15,10 @@ onMounted(async () => {
 
 const openModal = () => {
   store.modalWindowStatus.addTaleModal = true;
+};
+
+const navigateToDetails = (id: number) => {
+  router.push(`/details/${id}`);
 };
 </script>
 
@@ -39,6 +43,7 @@ const openModal = () => {
             :key="item.id"
             :id="item.id"
             :title="item.title"
+            @click="navigateToDetails(item.id)"
           />
         </div>
       </div>
