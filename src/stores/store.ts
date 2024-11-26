@@ -1,3 +1,4 @@
+import fetchGet from "@/functions/fetchGet";
 import { defineStore } from "pinia";
 import { computed, reactive, ref } from "vue";
 
@@ -30,6 +31,11 @@ export const useStore = defineStore("store", () => {
       adminkey
   );
 
+  const getTales = async () => {
+    const response = await fetchGet(getTalesUrl.value);
+    talesList.value = response.Sections;
+  };
+
   return {
     getTaleUrl,
     getTalesUrl,
@@ -40,5 +46,6 @@ export const useStore = defineStore("store", () => {
     startScreenUpdate,
     modalWindowStatus,
     adminkey,
+    getTales,
   };
 });

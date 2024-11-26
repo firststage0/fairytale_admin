@@ -9,9 +9,9 @@ const body = reactive({
 });
 
 const image = ref();
-
+const imageUrl = ref();
 const store = useStore();
-
+const imageInput = ref();
 const addTale = async () => {
   const formData = new FormData();
   if (body.Title) {
@@ -30,19 +30,29 @@ const addTale = async () => {
     console.log(element);
   }
 
-  const post = await fetch(store.createTaleUrl, {
+  await fetch(store.createTaleUrl, {
     method: "POST",
     body: formData,
     headers: {
       AdminKey: store.adminkey,
     },
   });
-  console.log(post);
+
+  await store.getTales();
+  store.modalWindowStatus.addTaleModal = false;
 };
 
 const uploadImage = (event: any) => {
   if (event.files === null) return;
   image.value = event.target.files[0];
+  imageUrl.value = URL.createObjectURL(image.value);
+  console.log(image.value);
+};
+
+const deleteImage = () => {
+  image.value = null;
+  imageUrl.value = null;
+  imageInput.value.value = null;
 };
 
 const closeModal = () => {
@@ -62,7 +72,13 @@ const closeModal = () => {
           @click="closeModal"
         />
       </div>
-      <label for="image-input" class="input-image-label"
+      <div class="img-box" v-if="image">
+        <img class="tale-image" :src="imageUrl" />
+        <button class="delete-image-btn" @click="deleteImage">
+          <img src="@/assets/images/delete.svg" alt="" />
+        </button>
+      </div>
+      <label v-else for="image-input" class="input-image-label"
         >Нажмите чтобы загрузить изображение</label
       >
       <input
@@ -71,7 +87,9 @@ const closeModal = () => {
         class="image-input"
         id="image-input"
         @input="uploadImage"
+        ref="imageInput"
       />
+
       <input
         type="text"
         class="text-input"
@@ -160,5 +178,32 @@ const closeModal = () => {
   padding: 12px;
   background-color: #0068ff;
   color: #fff;
+}
+
+.img-box {
+  position: relative;
+  width: 100%;
+  height: 250px;
+}
+
+.tale-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+}
+
+.delete-image-btn {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  background: #fff;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import TaleCard from "@/components/TaleCard.vue";
-import fetchGet from "@/functions/fetchGet";
 import { useStore } from "@/stores/store";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -8,9 +7,9 @@ const route = useRoute();
 const isDetailView = computed(() => route.name === "home-details");
 const store = useStore();
 const isLoading = ref(true);
+
 onMounted(async () => {
-  const response = await fetchGet(store.getTalesUrl);
-  store.talesList = response.Sections;
+  await store.getTales();
   isLoading.value = false;
 });
 
