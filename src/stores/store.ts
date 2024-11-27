@@ -19,7 +19,7 @@ export const useStore = defineStore("store", () => {
     return `https://tales.extentlab.ru/api/v1/tales/create-tale`;
   });
   const updateTaleUrl = ref(
-    "https://tales.extentlab.ru/api/v1/tales/update-tale?AdminKey=" + adminkey
+    "https://tales.extentlab.ru/api/v1/tales/update-tale"
   );
 
   const startScreenGet = ref(
@@ -27,9 +27,10 @@ export const useStore = defineStore("store", () => {
   );
 
   const startScreenUpdate = ref(
-    "https://tales.extentlab.ru/api/v1/tales/update-startup-screen?AdminKey=" +
-      adminkey
+    "https://tales.extentlab.ru/api/v1/tales/update-startup-screen"
   );
+
+  const deleteTaleUrl = ref("https://tales.extentlab.ru/api/v1/tales/del-tale");
 
   const getTales = async () => {
     const response = await fetchGet(getTalesUrl.value);
@@ -47,5 +48,6 @@ export const useStore = defineStore("store", () => {
     modalWindowStatus,
     adminkey,
     getTales,
+    deleteTaleUrl,
   };
 });

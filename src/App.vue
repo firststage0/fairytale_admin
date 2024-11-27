@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useStore } from "@/stores/store";
 import AddTaleModal from "@/widgets/AddTaleModal.vue";
+
 const store = useStore();
 </script>
 

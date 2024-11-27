@@ -10,8 +10,11 @@
     "lint": "vue-tsc -b"
   },
   "dependencies": {
+    "@primevue/themes": "^4.2.4",
     "eslint": "^9.14.0",
     "pinia": "^2.2.5",
+    "primevue": "^4.2.4",
+    "quill": "^2.0.2",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },

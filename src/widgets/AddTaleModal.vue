@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useStore } from "@/stores/store";
 import { reactive, ref } from "vue";
-
 const body = reactive({
   Title: "",
   preTitle: "",
@@ -25,9 +24,6 @@ const addTale = async () => {
   }
   if (image.value) {
     formData.append("ImageFile", image.value);
-  }
-  for (const element of formData) {
-    console.log(element);
   }
 
   await fetch(store.createTaleUrl, {
@@ -78,8 +74,8 @@ const closeModal = () => {
           <img src="@/assets/images/delete.svg" alt="" />
         </button>
       </div>
-      <label v-else for="image-input" class="input-image-label"
-        >Нажмите чтобы загрузить изображение</label
+      <label v-else for="image-input" class="input-image-label">
+        Нажмите чтобы загрузить изображение</label
       >
       <input
         type="file"
